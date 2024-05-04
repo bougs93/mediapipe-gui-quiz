@@ -1,13 +1,13 @@
 # 제38회 광주광역시과학전람회 출품작
-### AI모션 인식 기술 이용한 과학 퀴즈 연구
-* 설치방법, 환경설정, 사용법 문서 작성중
+### 프로젝트 주제: AI모션 인식 기술 이용한 과학 퀴즈 연구
+* 작성중~
 
 ## Mediapipe Quiz
 ### AI motion recognition with Google Mediapipe, quiz program using PySide
 * 제작기간 : 2022.04. ~ 2024.05.
 * 전체코드 라인수
   * 2024.05.05. 현재 18,328 라인
-* 프로그램 소개
+* 프로젝트 소개
   * Google MediaPipe, PySide6, OpenCV 등을 이용한 영상 제스처 인식을 이용한 퀴즈 게임( AI 학습)
   * 빔프로젝터 제어 및 스케쥴 관리
   * 모션 인식 방법 : 가상키보드, 손가락 카운터, 머리 움직임
