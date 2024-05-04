@@ -19,7 +19,7 @@
 
 ### 폴더 구조
 * config | 환경설정 폴더 (설정)
-* db | 데이터 베이스 폴더 - 자동 생성
+* db | 데이터 베이스 폴더(sqlite3) - 자동 생성
 * effect | 효과음악 폴더
 * font_install | 퀴즈에 사용되는 폰트 - window/font 폴더에 복사
 * image | 이미지 저장
