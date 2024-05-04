@@ -30,7 +30,10 @@
 * temp | 프로그램 임시 파일
 * user | 학생, 교사 id 작성 파일 (id설정)
 
-  
+### 추후 계획 (예정)
+* 글로벌(영문, 다국어) 버전으로 수정 예정
+* 유튜브 소개영상 제작 예정
+
 ### 게임화면
 ![image](https://github.com/bougs93/mediapipe-quiz/assets/45992773/982a8bc1-c50f-4d71-943a-95c527067b85)
 ![image](https://github.com/bougs93/mediapipe-quiz/assets/45992773/3364e28d-fcd8-4d68-ac50-202d7438996f)
