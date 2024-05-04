@@ -41,7 +41,7 @@
 
 
 ### 게임화면
-* 초상권 보호를 위해 얼굴 캐릭터 이미지 처리
+* 초상권 보호를 위해 얼굴을 캐릭터 이미지로 가림
 ![image](https://github.com/bougs93/mediapipe-quiz/assets/45992773/3f1505c4-63b2-4a53-9233-aa5cd44eb7d6)
 ![image](https://github.com/bougs93/mediapipe-quiz/assets/45992773/982a8bc1-c50f-4d71-943a-95c527067b85)
 ![image](https://github.com/bougs93/mediapipe-quiz/assets/45992773/3364e28d-fcd8-4d68-ac50-202d7438996f)
