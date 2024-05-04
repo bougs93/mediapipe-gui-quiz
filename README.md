@@ -7,7 +7,7 @@
 ### AI motion recognition with Google Mediapipe, quiz program using PySide
 * 제작기간 : 2022.04. ~ 2024.05.
 * 전체코드 라인수
-  * 2024.05.05. 현재 18,328 라인
+  * 2024.05.05. 현재 : 18,328 라인
 * 프로젝트 소개
   * Google MediaPipe, PySide6, OpenCV 등을 이용한 영상 제스처 인식을 이용한 퀴즈 게임( AI 학습)
     * 영상인식을 퀴즈 게임 학습에 이용 (4가지 문제 방식)
