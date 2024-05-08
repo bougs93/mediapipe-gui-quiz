@@ -131,7 +131,14 @@ class IdLoad():
                 # xlsx 파일에 기록하기
                 #                TO_ID = 0; TO_SCHOOL =1;  TO_GRADE = 2; TO_CLASS = 3; TO_NUMBER = 4; TO_NAME = 5; TO_GENDER = 6; TO_ETC = 7
                 write_ws.append([id_str, "", row[GRADE].value, row[CLASS].value, row[NUMBER].value, row[NAME].value, gender, ""])
-                preSave_xlsx_list.append([int(id_str), "", int(row[GRADE].value), int(row[CLASS].value), int(row[NUMBER].value),str(row[NAME].value), gender, ""])
+                
+                id_int = self.covert_noneInt(id_str)
+                grade_int = self.covert_noneInt(row[GRADE].value)
+                class_int = self.covert_noneInt(row[CLASS].value)
+                number_int = self.covert_noneInt(row[NUMBER].value)
+                name_str = row[NAME].value
+
+                preSave_xlsx_list.append([id_int, "", grade_int, class_int, number_int, name_str, gender, ""])
                 # print(id, row[NAME].value)
 
                             # *학번(문자), *이름(문자)
@@ -166,8 +173,14 @@ class IdLoad():
                     gender = self.gender_type(row[GENDER].value)
                     # xlsx 파일에 기록하기
                     #                TO_ID = 0; TO_SCHOOL =1;  TO_GRADE = 2; TO_CLASS = 3; TO_NUMBER = 4; TO_NAME = 5; TO_GENDER = 6; TO_ETC = 7
-                    write_ws.append([id_str, "", row[GRADE].value, row[CLASS].value, row[NUMBER].value, row[NAME].value, gender, ""])
-                    preSave_xlsx_list.append([int(id_str), "", int(row[GRADE].value), int(row[CLASS].value), int(row[NUMBER].value),str(row[NAME].value), gender, ""])
+                    id_int = self.covert_noneInt(id_str)
+                    grade_int = self.covert_noneInt(row[GRADE].value)
+                    class_int = self.covert_noneInt(row[CLASS].value)
+                    number_int = self.covert_noneInt(row[NUMBER].value)
+                    name_str = row[NAME].value
+
+                    write_ws.append([id_str, "", grade_int, class_int, number_int, name_str, gender, ""])
+                    preSave_xlsx_list.append([id_str, "", grade_int, class_int, number_int, name_str, gender, ""])
                     # print(id, row[NAME].value)
                                 # 학번(문자), 이름(문자)
                     id_dicList[id_str] = ["", row[GRADE].value, row[CLASS].value, row[NUMBER].value, row[NAME].value, gender, ""]
@@ -184,6 +197,13 @@ class IdLoad():
 
 
         return id_dicList, preSave_xlsx_list
+    
+
+    def covert_noneInt(self, _str):
+        if _str == '' or _str == None:
+            return None
+        else:
+            return int(_str)
 
     def db_create_users_Table(self):
         try:
@@ -191,9 +211,9 @@ class IdLoad():
                 CREATE TABLE IF NOT EXISTS user(
                     id INTEGER PRIMARY KEY,
                     school TEXT,
-                    grade INTEGER NOT NULL,
-                    class INTEGER NOT NULL,
-                    number INTEGER NOT NULL,
+                    grade INTEGER,
+                    class INTEGER,
+                    number INTEGER,
                     name TEXT NOT NULL,
                     gender TEXT,
                     visit_count INTEGER,
@@ -210,7 +230,9 @@ class IdLoad():
         CreteDate = QDate.currentDate().toString('yyyy-MM-dd')
         visit_count = 0
 
-        UserID=int(data[TO_ID]); School=data[TO_SCHOOL]; Grade=int(data[TO_GRADE]); Class=int(data[TO_CLASS]); Number=int(data[TO_NUMBER]); Name=data[TO_NAME]; Gender=data[TO_GENDER]; Etc=data[TO_ETC]
+        # UserID=int(data[TO_ID]); School=data[TO_SCHOOL]; Grade=int(data[TO_GRADE]); Class=int(data[TO_CLASS]); Number=int(data[TO_NUMBER]); Name=data[TO_NAME]; Gender=data[TO_GENDER]; Etc=data[TO_ETC]
+        UserID=data[TO_ID]; School=data[TO_SCHOOL]; Grade=data[TO_GRADE]; Class=data[TO_CLASS]; Number=data[TO_NUMBER]; Name=data[TO_NAME]; Gender=data[TO_GENDER]; Etc=data[TO_ETC]
+        
         Gender = self.gender_type(Gender)
         try:
             self.cursor.execute("INSERT INTO user(id, school, grade, class, number, name, gender, visit_count, crete_date, etc) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)" ,

@@ -204,16 +204,18 @@ class QuizEndDisplay(QWidget, Ui_quizEndView):
     def rankingCalculate(self):
         self.rankRead = self.rankJsonRW.read()
 
-        # RA_RANK = 0; RA_SCORE=1; RA_TOTAL=2; RA_ID=3; RA_NAME=4; RA_DTIME=5
-        # ['RANK','SCORE','TOTAL', 'ID', 'NAME','TIME' ]
+        # RANK_RANK = 0; RANK_SCORE=1; RANK_TOTAL=2; RANK_ID=3; RANK_SCHOOL=4; RANK_GRADE=5 ;RANK_NAME=6; RANK_DTIME=7
 
         # 테스트시 에러 방지 목적
         if val.st_quizStartTime == None:
             val.st_quizStartTime = QDateTime.currentDateTime().toString("yyyy-MM-dd hh:mm:ss")
 
-        # 새로운 데이터 생성
-        newUser = [val.st_rank, val.st_score,  val.st_quiz_cnt, val.st_id, val.st_name, val.st_quizStartTime  ]
-        print( 'newUser =',newUser)
+        ### 새로운 랭킹 데이터 생성 ###
+        #         newUser = [val.st_rank, val.st_score,  val.st_quiz_cnt, val.st_id, val.st_name, val.st_quizStartTime]
+
+                #  순위          점수           퀴즈갯수         아이디     학교                 학년        이름           시간
+        newUser = [val.st_rank, val.st_score, val.st_quiz_cnt, val.st_id, val.st_school, val.st_grade, val.st_name, val.st_quizStartTime ]
+        print( f'일반 모드 newUser = {newUser}')
 
         if val.st_score <= 0 or val.st_id == '' or val.st_name == '손님':
             # 점수가 0 이하 또는 id가 없는 손님인 경우
@@ -223,20 +225,20 @@ class QuizEndDisplay(QWidget, Ui_quizEndView):
             findTag = None
             _findUser = []
             for idx, user in  enumerate(self.rankRead):
-                if user[RA_ID] == val.st_id:
+                if user[RANK_ID] == val.st_id:
                     # id 를 찾은 경우
                     _findUser = user
                     findTag = 'find'
                     # 기록된 점수 비교 if(현점수>기록된 점수 and 총문제<기록된 총문제)
-                    # if val.st_score > user[RA_SCORE] and val.st_quiz_cnt < user[RA_TOTAL]:
-                    if val.st_score > user[RA_SCORE]:        # 점수 초과
+                    # if val.st_score > user[RANK_SCORE] and val.st_quiz_cnt < user[RANK_TOTAL]:
+                    if val.st_score > user[RANK_SCORE]:        # 점수 초과
                         self.rankRead[idx] = newUser         #   덮어 쓰기
                         findTag = 'find_write'
-                    elif  val.st_score == user[RA_SCORE]:    # 점수 같은경우,
-                        if val.st_quiz_cnt < user[RA_TOTAL]: #   문제수가 작은 경우
+                    elif  val.st_score == user[RANK_SCORE]:    # 점수 같은경우,
+                        if val.st_quiz_cnt < user[RANK_TOTAL]: #   문제수가 작은 경우
                             self.rankRead[idx] = newUser
                             findTag = 'find_write'
-                        elif val.st_quiz_cnt == user[RA_TOTAL]:
+                        elif val.st_quiz_cnt == user[RANK_TOTAL]:
                             self.rankRead[idx] = newUser
                             findTag = 'find_same'
                     else:
@@ -250,10 +252,10 @@ class QuizEndDisplay(QWidget, Ui_quizEndView):
             self.lb_info2.setText(f'이전 기록과 동일합니다.')
         elif findTag == 'find_write':
             self.lb_info2.setText(f'<p> 축하합니다. 이전 기록을 갱신했습니다.</p>\
-                                  <p> 이전 기록은 {_findUser[RA_RANK]}위 {_findUser[RA_SCORE]}점 {_findUser[RA_TOTAL]}문제 입니다.</p>')
+                                  <p> 이전 기록은 {_findUser[RANK_RANK]}위 {_findUser[RANK_SCORE]}점 {_findUser[RANK_TOTAL]}문제 입니다.</p>')
         elif findTag == 'find_NotWrite':
             self.lb_info2.setText(f'<p> 아쉽네요. 이전 기록을 갱신 못했습니다.</p>\
-                                  <p> 이전 기록은 {_findUser[RA_RANK]}위 {_findUser[RA_SCORE]}점 {_findUser[RA_TOTAL]}문제 입니다.</p>')
+                                  <p> 이전 기록은 {_findUser[RANK_RANK]}위 {_findUser[RANK_SCORE]}점 {_findUser[RANK_TOTAL]}문제 입니다.</p>')
         
         elif findTag == 'not':
             # 종료
@@ -263,33 +265,39 @@ class QuizEndDisplay(QWidget, Ui_quizEndView):
 
         # 2) 리스트 정렬하기 / 2차원 배열 정렬하기 https://haesoo9410.tistory.com/193
         #   (1) 최근 날짜순
-        self.rankRead.sort(reverse = True, key=lambda x:x[RA_DTIME])
-        #   (2) 문제수 적은순
-        self.rankRead.sort(key=lambda x:x[RA_TOTAL])
-        #   (3) 높은 점수순
-        self.rankRead.sort(reverse = True, key=lambda x:x[RA_SCORE])
-        
+        self.rankRead.sort(reverse = True, key=lambda x:x[RANK_DTIME])
 
+        #   (2) 문제수 적은순
+        if RANKING_EXHIBITION_MODE:
+            pass
+        else:
+            self.rankRead.sort(key=lambda x:x[RANK_TOTAL])
+
+        #   (3) 높은 점수순
+        self.rankRead.sort(reverse = True, key=lambda x:x[RANK_SCORE])
+        
         #   (4) 순위 구하기 https://wakaranaiyo.tistory.com/72?category=910751
         _rank = 0
         temp = 10000
         for idx, user in enumerate(self.rankRead):
-            if user[RA_SCORE] < temp:
+            if user[RANK_SCORE] < temp:
                 _rank += 1
-                self.rankRead[idx][RA_RANK] = _rank
-                temp = user[RA_SCORE]
+                self.rankRead[idx][RANK_RANK] = _rank
+                temp = user[RANK_SCORE]
             else:
-                self.rankRead[idx][RA_RANK] = _rank
+                self.rankRead[idx][RANK_RANK] = _rank
 
+        print(f'T3 : {val.st_id}, {type(val.st_id)}, {self.rankRead}')
         #   (5) 순위 index 구하기
         self.userIndex = 0
         for idx, user in  enumerate(self.rankRead):
-            if user[RA_ID] == val.st_id:
+            if user[RANK_ID] == val.st_id:
                 self.userIndex = idx
-                userRank = user[RA_RANK]
+                userRank = user[RANK_RANK]
 
-        # SAVE 저장하기
+        # 현재 순위 변수에 저장
         val.st_rank = userRank
+        # File SAVE 저장하기
         self.rankJsonRW.write(self.rankRead)
 
         # 출력 테스트

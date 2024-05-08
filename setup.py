@@ -52,7 +52,7 @@ CAPTURE_DEVICE1 = cv2.CAP_DSHOW+1    # 외부 카메라
 
 
 # #########################################################################
-RANKING_EXHIBITION_MODE = True   # exhibition (전시관) 모드, 일반 모드 선택
+RANKING_EXHIBITION_MODE = False   # exhibition (전시관) 모드, 일반 모드 선택
 # #########################################################################
 DB_PATH = './db/'
 DB_SCHOOL_FILE = 'school_database.db'
@@ -256,7 +256,7 @@ Q_TEST_HINT = ini['quiz_test_hint']
 QUIZ_END_VIEW_TIME = ini['quiz_end_view_time'] # '30'   # 초단위만 입력
 
 ### ranking table widtet
-RA_RANK = 0; RA_SCORE=1; RA_TOTAL=2; RA_ID=3; RA_NAME=4; RA_DTIME=5
+RANK_RANK=0; RANK_SCORE=1; RANK_TOTAL=2; RANK_ID=3; RANK_SCHOOL=4; RANK_GRADE=5 ;RANK_NAME=6; RANK_DTIME=7
 
 ### ranking_table_view.py ####
 RANK_TABLE_VIEW_INTERVAL = 500

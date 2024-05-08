@@ -1230,23 +1230,74 @@ class MyWidonws(QMainWindow):
         # 추가 모드
         if scan_data[SCAN_HEADER] == 'add':
             print('[QR ADD] main user add')
+
+            # id
+            if scan_data[SCAN_ID] == '':
+                id_int = None
+            else:
+                id_int = int(scan_data[SCAN_ID])
+
+            # school
+            if scan_data[SCAN_SCHOOL] == '':
+                school_str = None
+            else:
+                school_str = scan_data[SCAN_SCHOOL]
+
+            # grade
+            if scan_data[SCAN_GRADE] == '':
+                grade_int = None
+            else:
+                grade_int = int(scan_data[SCAN_GRADE])
+
+            # class
+            if scan_data[SCAN_CLASS] == '':
+                class_int = None
+            else:
+                class_int = int(scan_data[SCAN_CLASS])
+
+            # number
+            if scan_data[SCAN_NUMBER] == '':
+                number_int = None
+            else:
+                number_int = int(scan_data[SCAN_NUMBER])
+
+            # name
+            if scan_data[SCAN_NAME] == '':
+                name_str = None
+            else:
+                name_str = scan_data[SCAN_NAME]
+
+            # gender
+            if scan_data[SCAN_GENDER] == '':
+                gender_str = None
+            else:
+                gender_str = scan_data[SCAN_GENDER]
+
+            # etc
+            if scan_data[SCAN_ETC] == '':
+                etc_str = None
+            else:
+                etc_str = scan_data[SCAN_ETC]
+
             # 1. db 에서 검색
-            val.st_id, val.st_school, val.st_grade, val.st_name = self.userRegDisplay.find_db_id(int(scan_data[SCAN_ID]))
+            val.st_id, val.st_school, val.st_grade, val.st_name = self.userRegDisplay.find_db_id(id_int)
             #   1-1. db 에 없으면
             if val.st_id == '':
                 print('[SCAN ID] : db에 없음 -> DB 등록')
                 # DB에 id 등록 / xlsx_id_load 정의됨
+
                 if 'select:' in scan_data[SCAN_ETC]: etc = None 
-                self.userRegDisplay.idLoad.db_create_User([int(scan_data[SCAN_ID]), scan_data[SCAN_SCHOOL], int(scan_data[SCAN_GRADE]), int(scan_data[SCAN_CLASS]), int(scan_data[SCAN_NUMBER]), scan_data[SCAN_NAME], scan_data[SCAN_GENDER], etc])
+                self.userRegDisplay.idLoad.db_create_User([id_int, school_str, grade_int, class_int, number_int, name_str, gender_str, etc])
+                
                 self.userRegDisplay.idLoad.conn.commit()    # 저장
                 # 다시 조회
-                val.st_id, val.st_school, val.st_grade, val.st_name = self.userRegDisplay.find_db_id(int(scan_data[SCAN_ID]))
+                val.st_id, val.st_school, val.st_grade, val.st_name = self.userRegDisplay.find_db_id(id_int)
             #   1-2. db 있으면
             else:
                 print('[SCAN ID] : db에 있음')
 
             # 퀴즈 번호 검사
-            if 'select:' in scan_data[SCAN_ETC]:
+            if 'select:' in etc_str:
                 etc_list = scan_data[SCAN_ETC].split(':')
                 # val.quizFileNum = int(etc_list[1])   # 퀴즈 번호
                 self.qr_select_quiz_num = int(etc_list[1])

@@ -19,6 +19,7 @@ from rank_json_rw import RankJsonRW
 from setup import *
 import val
 
+# 교내 ID 등록 
 class RankingTableView():
     def __init__(self, rankingTable):
         
@@ -91,10 +92,44 @@ class RankingTableView():
         self.rankJsonRW = RankJsonRW()
 
     #### quiz_end 후 랭킹 테이블에서 자신의 랭킹 확인용 #### 
+    def rank_filter(self, org):
+        dist = []
+        for data in org:
+            # 랭킹에 보여줄 데이터 설정
+            if RANKING_EXHIBITION_MODE:
+                dist.append([data[RANK_RANK], data[RANK_SCORE], data[RANK_SCHOOL], data[RANK_GRADE], self.name_blind(data[RANK_NAME]), data[RANK_DTIME]])
+            else :
+                # 순위,  점수,  퀴즈개수, 학번, 이름, 시간 (6)
+                dist.append([data[RANK_RANK], data[RANK_SCORE], data[RANK_TOTAL], self.id_blind(data[RANK_ID]), self.name_blind(data[RANK_NAME]), data[RANK_DTIME]])
+        return dist
+    
+    def id_blind(self, org):
+        _orgList = list(org)
+        try:
+            _orgList[-1] = '*'
+            _orgList[-2] = '*'
+        except IndexError:
+            pass
+        return ''.join(_orgList)
+
+    def name_blind(self, name):
+        nameList = list(name)
+        try:
+            nameList[1] = '*'
+            _name =''.join(nameList)
+        except IndexError:
+            pass
+        return _name
+
+
     def myRankView(self, idx):
 
         # 랭킹뷰용 데이터 블러오기
-        self.viewRank = self.rankJsonRW.viewLoad()
+        # self.viewRank = self.rankJsonRW.viewLoad()
+
+        org_rank = self.rankJsonRW.viewLoad()
+        self.viewRank = self.rank_filter(org_rank)
+
         total_row = len(self.viewRank)
 
         table_row = self.rankingTable.rowCount()        # 총 랭킹 갯수
@@ -122,18 +157,6 @@ class RankingTableView():
                 #  아이템에 데이터 삽입
                 try:
                     item.setText(str(self.viewRank[i][j]))     # index out of range
-                    
-                    ''' #### ID 정보 일부분 숨기기 #### '''
-                    _id = str(self.viewRank[i][RA_ID])
-                    _idList = list(_id)
-                    try:
-                        _idList[-1] = '*'
-                        _idList[-2] = '*'
-                    except IndexError:
-                        pass
-                    _id =''.join(_idList)
-                    self.viewRank[i][RA_ID] = _id
-                    ''' #### #################### #### '''
 
                 except IndexError:
                     item.setText('')
@@ -172,7 +195,9 @@ class RankingTableView():
 
 
     def RankAllView(self):
-        self.viewRank = self.rankJsonRW.viewLoad()
+        org_rank = self.rankJsonRW.viewLoad()
+        self.viewRank = self.rank_filter(org_rank)
+
         self.total_row = len(self.viewRank)
         
         self.tabletimer = QTimer()
@@ -194,7 +219,7 @@ class RankingTableView():
     def tabletimer_stop(self):
         self.tabletimer.stop()
 
-
+# 교외 행사 외부
 class RankingTableView2(RankingTableView):
     def __init__(self, rankingTable):
 
@@ -203,8 +228,8 @@ class RankingTableView2(RankingTableView):
         self.rankingTable.setRowCount(20)
         self.rankingTable.setColumnCount(6)
 
-        # 랭킹| 스코어 | 학교 | 학년반 | 이름 | 시간
-        columnHeaders = ['순위','점수','학교', '학년반', '이름','시간' ]
+        # 랭킹| 스코어 | 학교 | 학년 | 이름 | 시간
+        columnHeaders = ['순위','점수','학교', '학년', '이름','시간' ]
         self.rankingTable.setHorizontalHeaderLabels(columnHeaders)
         self.rankingTable.verticalHeader().setVisible(False)     # https://stackoverflow.com/questions/2942951/removing-index-numbers-in-qtablewidget
 

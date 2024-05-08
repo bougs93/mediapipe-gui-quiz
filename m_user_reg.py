@@ -265,6 +265,7 @@ class UserRegDisplay(QWidget, Ui_user_reg, ThreadVideo):
             name = self.idLoad.id_dicList[id_str][TO_NAME-1]
 
             #1) name 원하는 위치 문자 변경 https://gbjeong96.tistory.com/25
+            # 사용자 이름 일부 숨기기
             name = list(name)
             name[1] = "*"
             find_id = id_str
