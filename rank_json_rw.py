@@ -20,7 +20,7 @@ class RankJsonRW():
     def getFileName(self):
         # 파일에서 확장자 구분하기  https://chancoding.tistory.com/182
         xlsFileName = os.path.splitext(val.quizFileList[val.quizFileNum])
-        if RANKING_EXHIBITION_MODE:
+        if EXHIBITION_MODE:
             self.rankFile = f'{RANKING_PATH}{xlsFileName[0]}{RANKING_EXHIBITION_POST_NAME}.{RANKING_FILE_EXT}'
         else:
             self.rankFile = f'{RANKING_PATH}{xlsFileName[0]}{RANKING_POST_NAME}.{RANKING_FILE_EXT}'

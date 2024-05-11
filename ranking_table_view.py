@@ -96,7 +96,7 @@ class RankingTableView():
         dist = []
         for data in org:
             # 랭킹에 보여줄 데이터 설정
-            if RANKING_EXHIBITION_MODE:
+            if EXHIBITION_MODE:
                 dist.append([data[RANK_RANK], data[RANK_SCORE], data[RANK_SCHOOL], data[RANK_GRADE], self.name_blind(data[RANK_NAME]), data[RANK_DTIME]])
             else :
                 # 순위,  점수,  퀴즈개수, 학번, 이름, 시간 (6)

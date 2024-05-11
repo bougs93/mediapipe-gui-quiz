@@ -52,14 +52,14 @@ CAPTURE_DEVICE1 = cv2.CAP_DSHOW+1    # 외부 카메라
 
 
 # #########################################################################
-RANKING_EXHIBITION_MODE = False   # exhibition (전시관) 모드, 일반 모드 선택
+EXHIBITION_MODE = ini['quiz_exhibition_mode']   # exhibition (전시관) 모드, 일반 모드 선택
 # #########################################################################
 DB_PATH = './db/'
 DB_SCHOOL_FILE = 'school_database.db'
 DB_EXHIBITION_FILE = 'exhibition_database.db'
 
 # 데이터 베이스 선택
-if not RANKING_EXHIBITION_MODE:
+if not EXHIBITION_MODE:
     # 일반 학교 퀴즈 모드
     DB_BASE_FILE = DB_SCHOOL_FILE
 else:
@@ -116,6 +116,10 @@ IMG_MODE_TOUCH = 'mode_touch.png'
 IMG_FACE_FILE = 'icon_my_face.png'
 IMG_FACE_FILE_XY = ini['icon_face_image_pos_xy']
 IMG_FACE_FILE_SIZE = ini['icon_img_size']
+
+
+IMG_MODE_SCHOOL = 'school_mode_Icon.png'
+IMG_MODE_EXHIBITION = 'exhibition_mode.png'
 
 ## xlsx_id_load.py
 ID_PATH = './user/'
@@ -391,8 +395,9 @@ SCH_LOG_FILE_NAME = 'serial_log_'
 
 ######################################################
 # MSG_FILE_QUIZ_WIAT = 'message_quiz_wait.html'
-MSG_FILE_QUIZ_WIAT = 'message_quiz_wait*.html'      # 여러개의 파일을 읽어 들이기 위함.
-MSG_FILE_USER_SEARCH = 'message_user_search.html'
+MSG_FILE_QUIZ_WIAT = 'message_quiz_wait*.html'              # 여러개의 파일을 읽어 들이기 위함.
+MSG_FILE_USER_SEARCH = 'message_user_search.html'           # 
+MSG_FILE_USER_SEARCH_EXHIBITTION = 'message_user_search_exhibition.html'
 MSG_FILE_QUIZ_COUNTDOWN = 'message_quiz_countdown.html'
 
 
@@ -405,4 +410,9 @@ MENU_INFO_TIME = ini['nenu_info_time']   # msec 단위
 QR_SCANNER_PORT = ini['qr_scanner_port']    # 'COM9'
 QR_SCANNER_SPEED = ini['qr_scanner_speed']  # 9600
 QR_ENCRYPT_KEY = ini['qr_encrypt_key']      #'aesKey'
+
+
+#######################################################
+CANDY_DISPENSOR_PORT = ini['candy_dispensor_port']    # 'COM9'
+CANDY_DISPENSOR_SPEED = ini['candy_dispensor_speed']  # 9600
 

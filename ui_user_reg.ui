@@ -182,7 +182,7 @@ border-radius: 30px;</string>
    <widget class="QLabel" name="lb_id">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>520</x>
       <y>560</y>
       <width>241</width>
       <height>81</height>
@@ -196,7 +196,7 @@ border-radius: 30px;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(63, 81, 181);
-border-radius: 30px;
+border-radius: 15px;
 color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
@@ -209,7 +209,7 @@ color: rgb(255, 255, 255);</string>
    <widget class="QLabel" name="lb_name">
     <property name="geometry">
      <rect>
-      <x>730</x>
+      <x>770</x>
       <y>560</y>
       <width>331</width>
       <height>81</height>
@@ -223,7 +223,7 @@ color: rgb(255, 255, 255);</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(63, 81, 181);
-border-radius: 30px;
+border-radius: 15px;
 color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
@@ -233,50 +233,10 @@ color: rgb(255, 255, 255);</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QLabel" name="lb_chAnswer_2">
-    <property name="geometry">
-     <rect>
-      <x>270</x>
-      <y>560</y>
-      <width>201</width>
-      <height>81</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>110</width>
-      <height>0</height>
-     </size>
-    </property>
-    <property name="font">
-     <font>
-      <family>나눔스퀘어라운드 ExtraBold</family>
-      <pointsize>30</pointsize>
-      <italic>false</italic>
-      <bold>true</bold>
-      <underline>false</underline>
-      <strikeout>false</strikeout>
-      <kerning>true</kerning>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-color: rgba(255, 255, 255, 60);
-border-radius: 30px;</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;조회결과:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
    <widget class="QLabel" name="lb_grade">
     <property name="geometry">
      <rect>
-      <x>820</x>
+      <x>860</x>
       <y>470</y>
       <width>241</width>
       <height>81</height>
@@ -290,7 +250,7 @@ border-radius: 30px;</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(63, 81, 181);
-border-radius: 30px;
+border-radius: 15px;
 color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
@@ -303,7 +263,7 @@ color: rgb(255, 255, 255);</string>
    <widget class="QLabel" name="lb_school">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>520</x>
       <y>470</y>
       <width>331</width>
       <height>81</height>
@@ -317,7 +277,7 @@ color: rgb(255, 255, 255);</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: rgb(63, 81, 181);
-border-radius: 30px;
+border-radius: 15px;
 color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
@@ -330,9 +290,9 @@ color: rgb(255, 255, 255);</string>
    <widget class="QLabel" name="lb_quiz_name">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>470</y>
-      <width>451</width>
+      <x>50</x>
+      <y>560</y>
+      <width>461</width>
       <height>81</height>
      </rect>
     </property>
@@ -344,7 +304,7 @@ color: rgb(255, 255, 255);</string>
     </property>
     <property name="styleSheet">
      <string notr="true">background-color: #E65100;
-border-radius: 30px;
+border-radius: 15px;
 color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
@@ -409,9 +369,9 @@ border-radius: 30px;</string>
   <widget class="QLabel" name="lb_keytime">
    <property name="geometry">
     <rect>
-     <x>22</x>
+     <x>1120</x>
      <y>16</y>
-     <width>231</width>
+     <width>141</width>
      <height>31</height>
     </rect>
    </property>
@@ -468,6 +428,22 @@ background-color: rgba(255, 255, 255, 150);</string>
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
+  <widget class="QLabel" name="lb_mode_img">
+   <property name="geometry">
+    <rect>
+     <x>13</x>
+     <y>15</y>
+     <width>80</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>mode_img</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
   <zorder>lb_imageView</zorder>
   <zorder>fr_top_quiz</zorder>
   <zorder>lb_fps</zorder>
@@ -476,6 +452,7 @@ background-color: rgba(255, 255, 255, 150);</string>
   <zorder>lb_keytime</zorder>
   <zorder>center_progress</zorder>
   <zorder>lb_verInfo</zorder>
+  <zorder>lb_mode_img</zorder>
  </widget>
  <resources/>
  <connections/>

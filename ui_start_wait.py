@@ -84,7 +84,7 @@ class Ui_startWait(object):
         self.lb_challenge.setAlignment(Qt.AlignCenter)
         self.lb_type2 = QLabel(startWait)
         self.lb_type2.setObjectName(u"lb_type2")
-        self.lb_type2.setGeometry(QRect(30, 40, 281, 31))
+        self.lb_type2.setGeometry(QRect(150, 40, 211, 31))
         font4 = QFont()
         font4.setFamilies([u"\ub098\ub214\uc2a4\ud018\uc5b4\ub77c\uc6b4\ub4dc Bold"])
         font4.setPointSize(23)
@@ -138,7 +138,7 @@ class Ui_startWait(object):
         self.lb_quizArea.setFont(font6)
         self.lb_quizArea.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "background-color: rgb(188, 1, 108);\n"
-"border-radius: 35px;")
+"border-radius: 20px;")
         self.lb_quizArea.setAlignment(Qt.AlignCenter)
         self.lb_quizTime = QLabel(startWait)
         self.lb_quizTime.setObjectName(u"lb_quizTime")
@@ -163,6 +163,10 @@ class Ui_startWait(object):
 "border-radius: 30px;")
         self.lb_chAnswer_2.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.lb_chAnswer_2.setWordWrap(True)
+        self.lb_mode_img = QLabel(startWait)
+        self.lb_mode_img.setObjectName(u"lb_mode_img")
+        self.lb_mode_img.setGeometry(QRect(13, 15, 80, 80))
+        self.lb_mode_img.setAlignment(Qt.AlignCenter)
         self.fr_top.raise_()
         self.lb_imageView.raise_()
         self.lb_chAnswer.raise_()
@@ -181,6 +185,7 @@ class Ui_startWait(object):
         self.lb_quizTime.raise_()
         self.fr_ranking.raise_()
         self.lb_chAnswer_2.raise_()
+        self.lb_mode_img.raise_()
 
         self.retranslateUi(startWait)
 
@@ -194,7 +199,7 @@ class Ui_startWait(object):
                         "\uc120\uc0ac\ud56d\uc740 \uc815\uc6d0\uae38\uc0d8 \uc5d0\uac8c  \uc54c\ub824\uc8fc\uc138\uc694</p></body></html>", None))
         self.lb_fps.setText(QCoreApplication.translate("startWait", u" FPS", None))
         self.lb_challenge.setText(QCoreApplication.translate("startWait", u"\ud034\uc988\uc5d0 \ub3c4\uc804\ud574 \ubcf4\uc138\uc694!", None))
-        self.lb_type2.setText(QCoreApplication.translate("startWait", u"\ud034\uc988\uc720\ud615: \uc2a4\ud53c\ub4dc \ud034\uc988", None))
+        self.lb_type2.setText(QCoreApplication.translate("startWait", u"\uc2a4\ud53c\ub4dc \ud034\uc988", None))
         self.lb_face_icon.setText(QCoreApplication.translate("startWait", u"face_icon", None))
         self.lb_verInfo.setText(QCoreApplication.translate("startWait", u"\ud504\ub85c\uadf8\ub7a8 v00  |  \ud034\uc988 v00  |  Program developer : 000", None))
         self.lb_hand_icon.setText(QCoreApplication.translate("startWait", u"hand_icon", None))
@@ -206,5 +211,6 @@ class Ui_startWait(object):
         self.lb_quizTime.setText(QCoreApplication.translate("startWait", u"\uc81c\ud55c\uc2dc\uac04 02:30", None))
         self.lb_chAnswer_2.setText(QCoreApplication.translate("startWait", u"<html><head/><body><p>- \uac1c\uc778\uc815\ubcf4 \ub3d9\uc758 \uc5c6\uc774 \uc190\ub2d8\uc73c\ub85c \ucc38\uc5ec \uac00\ub2a5\ud569\ub2c8\ub2e4. </p><p>- \uc601\uc0c1\ucc98\ub9ac(OpenCV), \uc778\uacf5\uc9c0\ub2a5 \ub3d9\uc791 \uc778\uc2dd \ud559\uc2b5 \uae30\uc220(Google MediaPipe)\uc744 \uc774\uc6a9\ud55c \ud034\uc988 \uac8c\uc784\uc785\ub2c8\ub2e4.</p><p>- \uc601\uc0c1\ucc98\ub9ac\uc5d0 \ub9ce\uc740 CPU, GPU \uc790\uc6d0\uc774 \uc0ac\uc6a9\ub418\ubbc0\ub85c \ub290\ub824\uc9d0\uacfc \uba48\ucda4 \ud604\uc0c1\uc774 \ubc1c\uc0dd\ud560 \uc218 \uc788\uc2b5\ub2c8\ub2e4.</p><p>- \ud034\uc988 \uc810\uc218 \ub7ad\ud0b9 \uae30\ub85d\uc744 \uc704\ud574\uc11c \ud559\uc0dd\uc758 \uac1c\uc778\uc815\ubcf4\ub97c \uc77c\ubd80 \uc870\ud68c \uc0ac\uc6a9\ud569\ub2c8\ub2e4. (\ud559\ub144,\ubc18, \uc774\ub984 2\uae00\uc790 \uc608: \ud64d*\ub3d9) </p><p>- \ubbf8\uc644\uc131 \uac1c\ubc1c \uc911\uc778 \ud14c\uc2a4\ud2b8 \ubc84\uc804\uc73c\ub85c \uc624\ub958\uac00 \uc788\uc744 \uc218 \uc788\uc2b5\ub2c8\ub2e4. \uc624\ub958\ub098 \uac1c"
                         "\uc120\uc0ac\ud56d\uc740 \uc815\uc6d0\uae38\uc0d8 \uc5d0\uac8c  \uc54c\ub824\uc8fc\uc138\uc694</p></body></html>", None))
+        self.lb_mode_img.setText(QCoreApplication.translate("startWait", u"mode_img", None))
     # retranslateUi
 

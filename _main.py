@@ -1221,64 +1221,20 @@ class MyWidonws(QMainWindow):
 
     @Slot(list)
     def qrScanner_slot(self, scan_data):
-        if self.qr_scan_available == False:
-            return
-        
-        print(f'str_list = {scan_data}')
-        # str_list = ['add','1234','고실초','2','6','30','홍길순','남','테스트1']
-
-        # 추가 모드
-        if scan_data[SCAN_HEADER] == 'add':
-            print('[QR ADD] main user add')
-
-            # id
-            if scan_data[SCAN_ID] == '':
-                id_int = None
+        # ##### 중첩 함수 정의 #####
+        def str_to_NoneOrStr( _str):
+            if _str == '':
+                return None
             else:
-                id_int = int(scan_data[SCAN_ID])
-
-            # school
-            if scan_data[SCAN_SCHOOL] == '':
-                school_str = None
+                return _str
+        def str_to_NoneOrInt( _str):
+            if _str == '':
+                return None
             else:
-                school_str = scan_data[SCAN_SCHOOL]
-
-            # grade
-            if scan_data[SCAN_GRADE] == '':
-                grade_int = None
-            else:
-                grade_int = int(scan_data[SCAN_GRADE])
-
-            # class
-            if scan_data[SCAN_CLASS] == '':
-                class_int = None
-            else:
-                class_int = int(scan_data[SCAN_CLASS])
-
-            # number
-            if scan_data[SCAN_NUMBER] == '':
-                number_int = None
-            else:
-                number_int = int(scan_data[SCAN_NUMBER])
-
-            # name
-            if scan_data[SCAN_NAME] == '':
-                name_str = None
-            else:
-                name_str = scan_data[SCAN_NAME]
-
-            # gender
-            if scan_data[SCAN_GENDER] == '':
-                gender_str = None
-            else:
-                gender_str = scan_data[SCAN_GENDER]
-
-            # etc
-            if scan_data[SCAN_ETC] == '':
-                etc_str = None
-            else:
-                etc_str = scan_data[SCAN_ETC]
-
+                return int(_str)
+            
+        def userFindAdd():
+            # ####### 등록 /조회 #######
             # 1. db 에서 검색
             val.st_id, val.st_school, val.st_grade, val.st_name = self.userRegDisplay.find_db_id(id_int)
             #   1-1. db 에 없으면
@@ -1296,6 +1252,7 @@ class MyWidonws(QMainWindow):
             else:
                 print('[SCAN ID] : db에 있음')
 
+        def selectQuizNum():
             # 퀴즈 번호 검사
             if 'select:' in etc_str:
                 etc_list = scan_data[SCAN_ETC].split(':')
@@ -1304,26 +1261,78 @@ class MyWidonws(QMainWindow):
                 print(f'퀴즈 번호 : etc_select_quiz_num = {self.qr_select_quiz_num}')
             else:
                 self.qr_select_quiz_num = None
-
-            # 메뉴 전환
+            
+        def toRegMenu():
+            self.userRegDisplay.timerkey_touch = True   # 입력 타이머 초기화
             # print(f'*** self.e_menu_item = {self.e_menu_item}')
             print('[data]', val.st_id, val.st_school, val.st_grade, val.st_name)
             if self.befor_menu in [None, 'quiz_start_wait', 'quiz_end']:
                 self.main_to_slot('user_reg_scan')
-                self.userRegDisplay.timerkey_touch = True   # 입력 타이머 초기화
             elif self.befor_menu in ['user_reg_scan', 'user_reg_scan_repeat']:
                 self.main_to_slot('user_reg_scan_repeat')
-                self.userRegDisplay.timerkey_touch = True   # 입력 타이머 초기화
             # 2. 추가/ 다시 도전 - 화면 전환
             # 3. 퀴즈 시작 준비
+
+        # #### 클래스 함수 시작 #####
+        if self.qr_scan_available == False:
+            return
         
-        # 삭제 모드
+        print(f'str_list = {scan_data}')
+        # str_list = ['add','1234','고실초','2','6','30','홍길순','남','테스트1']
+        # id
+        id_int = str_to_NoneOrInt(scan_data[SCAN_ID])
+        # school
+        school_str = str_to_NoneOrStr(scan_data[SCAN_SCHOOL])
+        # grade
+        grade_int = str_to_NoneOrInt(scan_data[SCAN_GRADE])
+        # class
+        class_int = str_to_NoneOrInt(scan_data[SCAN_CLASS])
+        # number
+        number_int = str_to_NoneOrInt(scan_data[SCAN_NUMBER])
+        # name
+        name_str = str_to_NoneOrStr(scan_data[SCAN_NAME])
+        # gender
+        gender_str = str_to_NoneOrStr(scan_data[SCAN_GENDER])
+        # etc
+        etc_str = str_to_NoneOrStr(scan_data[SCAN_ETC])
+
+        if scan_data[SCAN_HEADER] == 'guest' or name_str =='guest':
+            _mode = 'guest'
+        elif scan_data[SCAN_HEADER] == 'add':
+            _mode = 'add'
         elif scan_data[SCAN_HEADER] == 'del':
-            print('[QR DEL] main user del')
-            pass
+            _mode = 'del'
+        else:
+            _mode = None
+
+        # [add] 모드
+        if _mode == 'add':
+            print('[QR ADD] Mode')
+
+            # ####### 사용자 조회/등록 #######
+            userFindAdd()
+            # ####### 퀴즈 선택 검사 #######
+            selectQuizNum()
+            # ####### 메뉴(화면) 전환 #######
+            toRegMenu()
+        
+        # [del] 삭제 모드
+        elif _mode == 'del':
+            print('[QR DEL] Mode')
             # 1. db 에서 검색
             # 2. db 에서 삭제, 랭킹에서 삭제
             # 3. 삭제 메시지 보여주기
+
+        elif _mode == 'guest':
+            print('[QR guest] Mode')
+            val.st_id = '0000'
+            val.st_school =''
+            val.st_grade =''
+            val.st_name ='손님'
+            # ####### 퀴즈 선택 검사 #######
+            selectQuizNum()
+            # ####### 메뉴(화면) 전환 #######
+            toRegMenu()
 
 
     def mainTimerStart(self):
@@ -1369,7 +1378,7 @@ class MyWidonws(QMainWindow):
         ext_name = rank_file_lastDate.toString("yyyy-MM-dd")
         
         def ranking_backup(how):
-            if not RANKING_EXHIBITION_MODE:
+            if not EXHIBITION_MODE:
                 new_filename = f'{RANKING_PATH}{xlsFileName[0]}{RANKING_POST_NAME}_{how}_{ext_name}.{RANKING_FILE_EXT}'  # 랭킹 파일 이름 | 파일에서 확장자 구분하기  https://chancoding.tistory.com/182
                 os.rename(current_filename, new_filename)
             else:

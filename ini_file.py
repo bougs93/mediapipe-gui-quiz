@@ -251,6 +251,10 @@ def setupIni_load():
 
     KEY2 = 'QUIZ'
     # setupIni[KEY2] = {}   # 섹션 생성
+    if setupIni[KEY2]['quiz_exhibition_mode'] == 'True':
+        ini['quiz_exhibition_mode'] = True
+    elif setupIni[KEY2]['quiz_exhibition_mode'] == 'False':
+        ini['quiz_exhibition_mode'] = False
     ini['quiz_select_mode'] = setupIni[KEY2]['quiz_select_mode'] # = 'day_seq'
     ini['answer_score'] = int(setupIni[KEY2]['answer_score']) # = '1'    # int
     ini['wrong_score'] = int(setupIni[KEY2]['wrong_score']) # = '-1'     # int
@@ -334,8 +338,12 @@ def setupIni_load():
     ini['qr_scanner_port'] = setupIni[KEY8]['qr_scanner_port']
     ini['qr_scanner_speed'] = int(setupIni[KEY8]['qr_scanner_speed'])
     ini['qr_encrypt_key'] = setupIni[KEY8]['qr_encrypt_key']
-    
 
+    KEY9 = 'CANDY_DISPENSOR'
+    ini['candy_dispensor_port'] = setupIni[KEY9]['candy_dispensor_port']
+    ini['candy_dispensor_speed'] = int(setupIni[KEY9]['candy_dispensor_speed'])
+
+    
 
 def vistorLogWrite(text):
     line = text

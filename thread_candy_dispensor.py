@@ -1,6 +1,5 @@
 '''
-시리얼 QR코드 스캐너
-시리얼 포트용
+캔디 지급기
 
 '''
 
@@ -9,37 +8,17 @@ import re, datetime, time, sys, os
 from PySide6.QtCore import QTime
 from PySide6.QtSerialPort import QSerialPort, QSerialPortInfo
 
-from enum import Enum
-import qr_encrypt
-
-# import logging
-# logging.basicConfig(level=logging.DEBUG)
-
-# DATA : ad/del, id, school, grade, class, number, name, gender, etc (,:8개)
-DATA_SPLIT_CHAR_CNT = 8
-SCAN_HEADER = 0
-SCAN_ID = 1
-SCAN_SCHOOL = 2
-SCAN_GRADE = 3
-SCAN_CLASS = 4
-SCAN_NUMBER = 5
-SCAN_NAME = 6
-SCAN_GENDER = 7
-SCAN_ETC = 8
 
 
 # class ThreadQRScanner(QThread):
-class QRScanner(QObject):
-    qrScanner_signal = Signal(list)
+class CandyDispensor(QObject):
+    CandyDispensor_signal = Signal(str)
 
     def __init__(self):
         super().__init__()
 
-        self.scan_port_name = QR_SCANNER_PORT
-        self.scan_port_speed = QR_SCANNER_SPEED 
-        self.key = QR_ENCRYPT_KEY 
-
-        self.aes = qr_encrypt.AESCipher(self.key)
+        self.candy_dispensor_port = CANDY_DISPENSOR_PORT
+        self.candy_dispensor_speed = CANDY_DISPENSOR_SPEED 
 
         self.ignore_flag = False  # 데이터를 무시할지 여부를 결정하는 플래그
 
@@ -51,7 +30,7 @@ class QRScanner(QObject):
     def open(self):
 
         print('**************************************')
-        print('**  QR Scanner 시리얼 포트 Check    **')
+        print('** Candy dispensor 시리얼 포트 Check **')
         print('**************************************')
 
         # serial port 초기화
@@ -66,21 +45,21 @@ class QRScanner(QObject):
 
     def serial_init(self):
         # 시리얼포트 선택 : 4800, 9600, 19200, 38400, 115200
-        if self.scan_port_speed == 4800:
+        if self.candy_dispensor_speed == 4800:
             self.baudrate = QSerialPort.Baud4800
-        elif  self.scan_port_speed == 9600:
+        elif  self.candy_dispensor_speed == 9600:
             self.baudrate = QSerialPort.Baud9600
-        elif  self.scan_port_speed == 19200:
+        elif  self.candy_dispensor_speed == 19200:
             self.baudrate = QSerialPort.Baud19200
-        elif  self.scan_port_speed == 38400:
+        elif  self.candy_dispensor_speed == 38400:
             self.baudrate = QSerialPort.Baud38400
-        elif  self.scan_port_speed == 115200:
+        elif  self.candy_dispensor_speed == 115200:
             self.baudrate = QSerialPort.Baud115200
 
         # 시리얼 포트 환경변수 설정
         self.port = QSerialPort()
         self.port.setBaudRate( self.baudrate )
-        self.port.setPortName( self.scan_port_name )
+        self.port.setPortName( self.candy_dispensor_port )
         self.port.setDataBits( QSerialPort.Data8 )
         self.port.setParity( QSerialPort.NoParity )
         self.port.setStopBits( QSerialPort.OneStop )
@@ -94,16 +73,16 @@ class QRScanner(QObject):
         
 
         if ret:
-            print(f" SCANNER | Port {self.scan_port_name} Open [OK] : {self.scan_port_speed}\n")
+            print(f" SCANNER | Port {self.candy_dispensor_port} Open [OK] : {self.candy_dispensor_speed}\n")
             return True
         else:
-            print(f" SCANNER | Port {self.scan_port_name} Open [ERR] : {self.scan_port_speed}\n")
+            print(f" SCANNER | Port {self.candy_dispensor_port} Open [ERR] : {self.candy_dispensor_speed}\n")
             self.serial_stop()
             return False
 
     def serial_stop(self):
         self.port.close()
-        print(f'\n SCANNER | Port {self.scan_port_name} Port Close')
+        print(f'\n SCANNER | Port {self.candy_dispensor_port} Port Close')
 
 
     def read_from_port(self):

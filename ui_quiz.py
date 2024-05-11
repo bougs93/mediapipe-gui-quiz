@@ -279,7 +279,7 @@ class Ui_quizView(object):
         self.lb_type.setFont(font)
         self.lb_no = QLabel(quizView)
         self.lb_no.setObjectName(u"lb_no")
-        self.lb_no.setGeometry(QRect(34, 20, 201, 31))
+        self.lb_no.setGeometry(QRect(80, 20, 151, 31))
         self.lb_no.setFont(font)
         self.lb_quizResult = QLabel(quizView)
         self.lb_quizResult.setObjectName(u"lb_quizResult")
@@ -316,6 +316,10 @@ class Ui_quizView(object):
         self.lb_test_hint.setStyleSheet(u"border-radius: 5px;\n"
 "background-color: rgba(255, 255, 255, 150);")
         self.lb_test_hint.setAlignment(Qt.AlignCenter)
+        self.lb_mode_img = QLabel(quizView)
+        self.lb_mode_img.setObjectName(u"lb_mode_img")
+        self.lb_mode_img.setGeometry(QRect(20, 8, 45, 45))
+        self.lb_mode_img.setAlignment(Qt.AlignCenter)
         self.lb_imageView.raise_()
         self.fr_top_quiz.raise_()
         self.lb_fps.raise_()
@@ -327,6 +331,7 @@ class Ui_quizView(object):
         self.center_progress.raise_()
         self.lb_verInfo.raise_()
         self.lb_test_hint.raise_()
+        self.lb_mode_img.raise_()
 
         self.retranslateUi(quizView)
 
@@ -404,5 +409,6 @@ class Ui_quizView(object):
         self.lb_type2.setText(QCoreApplication.translate("quizView", u"\ud034\uc988\uc720\ud615: \uc2a4\ud53c\ub4dc \ud034\uc988", None))
         self.lb_verInfo.setText(QCoreApplication.translate("quizView", u"\ud504\ub85c\uadf8\ub7a8 v00  |  \ud034\uc988 v00  |  Program developer : 000", None))
         self.lb_test_hint.setText("")
+        self.lb_mode_img.setText(QCoreApplication.translate("quizView", u"mode_img", None))
     # retranslateUi
 

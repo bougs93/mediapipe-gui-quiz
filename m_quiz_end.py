@@ -137,6 +137,16 @@ class QuizEndDisplay(QWidget, Ui_quizEndView):
         # 터치 연속 입력 제한
         self.key_repeat_ready = True    
 
+        # ###### 퀴즈 모드 이미지 ######
+        self.lb_mode_img.setScaledContents(False)   # False 상태에서, 스케일 동작함.
+        if EXHIBITION_MODE:
+            pixmap_mode = QPixmap(f'{IMG_PATH}{IMG_MODE_EXHIBITION}')
+        else:
+            pixmap_mode = QPixmap(f'{IMG_PATH}{IMG_MODE_SCHOOL}')
+        pixmap_mode = pixmap_mode.scaled(self.lb_mode_img.size().width(), self.lb_mode_img.size().height(), Qt.KeepAspectRatio) 
+        self.lb_mode_img.setPixmap(pixmap_mode)
+
+
     def displayStart(self):
         ### 테스트용 ###################
         # val.st_id = '123'
@@ -268,7 +278,7 @@ class QuizEndDisplay(QWidget, Ui_quizEndView):
         self.rankRead.sort(reverse = True, key=lambda x:x[RANK_DTIME])
 
         #   (2) 문제수 적은순
-        if RANKING_EXHIBITION_MODE:
+        if EXHIBITION_MODE:
             pass
         else:
             self.rankRead.sort(key=lambda x:x[RANK_TOTAL])

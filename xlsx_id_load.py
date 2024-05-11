@@ -57,7 +57,7 @@ class IdLoad():
     def init(self):
         self.db_create_users_Table()
 
-        if not RANKING_EXHIBITION_MODE:
+        if not EXHIBITION_MODE:
 
             # 일반 퀴즈 모드인 경우
             ##################################################################
@@ -82,10 +82,10 @@ class IdLoad():
             ##################################################################
             # 전시회 퀴즈 모드인 경우
             ##################################################################
-            self.db_create_User(["5555", '고실중',3, 2, 12 ,"홍길동", "남", ""])
-            self.db_create_User(["6666", '고실중',3, 2, 11 ,"홍길순", "남", ""])
-            self.db_create_User(["7777", '고실중',3, 2, 19 ,"이순신", "남", ""])
-            self.conn.commit()
+            # self.db_create_User(["5555", '고실중',3, 2, 12 ,"홍길동", "남", ""])
+            # self.db_create_User(["6666", '고실중',3, 2, 11 ,"홍길순", "남", ""])
+            # self.db_create_User(["7777", '고실중',3, 2, 19 ,"이순신", "남", ""])
+            # self.conn.commit()
             # self.cursor.close()
             # self.conn.close()
             pass

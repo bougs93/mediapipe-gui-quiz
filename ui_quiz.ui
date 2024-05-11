@@ -732,9 +732,9 @@ border-radius: 30px;</string>
   <widget class="QLabel" name="lb_no">
    <property name="geometry">
     <rect>
-     <x>34</x>
+     <x>80</x>
      <y>20</y>
-     <width>201</width>
+     <width>151</width>
      <height>31</height>
     </rect>
    </property>
@@ -865,6 +865,22 @@ background-color: rgba(255, 255, 255, 150);</string>
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
+  <widget class="QLabel" name="lb_mode_img">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>8</y>
+     <width>45</width>
+     <height>45</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>mode_img</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
   <zorder>lb_imageView</zorder>
   <zorder>fr_top_quiz</zorder>
   <zorder>lb_fps</zorder>
@@ -876,6 +892,7 @@ background-color: rgba(255, 255, 255, 150);</string>
   <zorder>center_progress</zorder>
   <zorder>lb_verInfo</zorder>
   <zorder>lb_test_hint</zorder>
+  <zorder>lb_mode_img</zorder>
  </widget>
  <resources/>
  <connections/>

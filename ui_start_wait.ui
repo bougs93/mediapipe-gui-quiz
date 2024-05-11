@@ -170,9 +170,9 @@ color: rgb(255, 255, 255);</string>
   <widget class="QLabel" name="lb_type2">
    <property name="geometry">
     <rect>
-     <x>30</x>
+     <x>150</x>
      <y>40</y>
-     <width>281</width>
+     <width>211</width>
      <height>31</height>
     </rect>
    </property>
@@ -183,7 +183,7 @@ color: rgb(255, 255, 255);</string>
     </font>
    </property>
    <property name="text">
-    <string>퀴즈유형: 스피드 퀴즈</string>
+    <string>스피드 퀴즈</string>
    </property>
   </widget>
   <widget class="QLabel" name="lb_face_icon">
@@ -352,7 +352,7 @@ background-color: rgba(255, 255, 255, 150);</string>
    <property name="styleSheet">
     <string notr="true">color: rgb(255, 255, 255);
 background-color: rgb(188, 1, 108);
-border-radius: 35px;</string>
+border-radius: 20px;</string>
    </property>
    <property name="text">
     <string>-</string>
@@ -442,6 +442,22 @@ border-radius: 30px;</string>
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QLabel" name="lb_mode_img">
+   <property name="geometry">
+    <rect>
+     <x>13</x>
+     <y>15</y>
+     <width>80</width>
+     <height>80</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>mode_img</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
   <zorder>fr_top</zorder>
   <zorder>lb_imageView</zorder>
   <zorder>lb_chAnswer</zorder>
@@ -460,6 +476,7 @@ border-radius: 30px;</string>
   <zorder>lb_quizTime</zorder>
   <zorder>fr_ranking</zorder>
   <zorder>lb_chAnswer_2</zorder>
+  <zorder>lb_mode_img</zorder>
  </widget>
  <resources/>
  <connections/>

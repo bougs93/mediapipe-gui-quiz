@@ -199,6 +199,16 @@ class QuizMentalDisplay(QWidget, Ui_quizMentalView):
         # 퀴즈 종료후 대기시간 타이머       
         self.timer_wait_end = int(QUIZ_MENTAL_END_WAIT_TIME/QTIMER_INTERVAL)
 
+
+        # ###### 퀴즈 모드 이미지 ######
+        self.lb_mode_img.setScaledContents(False)   # False 상태에서, 스케일 동작함.
+        if EXHIBITION_MODE:
+            pixmap_mode = QPixmap(f'{IMG_PATH}{IMG_MODE_EXHIBITION}')
+        else:
+            pixmap_mode = QPixmap(f'{IMG_PATH}{IMG_MODE_SCHOOL}')
+        pixmap_mode = pixmap_mode.scaled(self.lb_mode_img.size().width(), self.lb_mode_img.size().height(), Qt.KeepAspectRatio) 
+        self.lb_mode_img.setPixmap(pixmap_mode)
+
     def displayInt(self):
         # clear
         self.lb_no.setText('문제: ' )

@@ -39,7 +39,7 @@ class RankView(QWidget):
         layout = QVBoxLayout(self)
         layout.addWidget(self.graphicsview)
         #################################################
-        if RANKING_EXHIBITION_MODE:
+        if EXHIBITION_MODE:
             # 전시관 모드 exhibition
             self.rankingTableView = RankingTableView2(self.rankWidget.tbw_ranking)
         else:

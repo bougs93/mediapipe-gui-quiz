@@ -73,3 +73,5 @@
 ![image](https://github.com/bougs93/mediapipe-quiz/assets/45992773/2f6ca2c5-90ba-4208-b072-c46a810391a1)
 
 
+업데이트 현황
+2024-05-09 일반, 전시관 순위 표시 문제 해결

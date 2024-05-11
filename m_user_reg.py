@@ -102,7 +102,7 @@ class UserRegDisplay(QWidget, Ui_user_reg, ThreadVideo):
         self.progress.add_shadow(True)
         self.progress.text = 'OK'
 
-        if RANKING_EXHIBITION_MODE:
+        if EXHIBITION_MODE:
             self.lb_school.setText('')
             self.lb_school.show()
             self.lb_grade.setText('')
@@ -131,9 +131,14 @@ class UserRegDisplay(QWidget, Ui_user_reg, ThreadVideo):
         #################################################################################
         # 하단 안내메시지 파일 로딩 self.lb_chAnswer
         try:
-            with open(f'{CONFIG_PATH}{MSG_FILE_USER_SEARCH}', 'r', encoding='utf-8') as file:
-                txt = file.read()
-                self.lb_msg.setText(txt)
+            if EXHIBITION_MODE:
+                with open(f'{CONFIG_PATH}{MSG_FILE_USER_SEARCH_EXHIBITTION}', 'r', encoding='utf-8') as file:
+                    txt = file.read()
+                    self.lb_msg.setText(txt)
+            else:
+                with open(f'{CONFIG_PATH}{MSG_FILE_USER_SEARCH}', 'r', encoding='utf-8') as file:
+                    txt = file.read()
+                    self.lb_msg.setText(txt)
         except FileNotFoundError:
             pass
 
@@ -142,7 +147,15 @@ class UserRegDisplay(QWidget, Ui_user_reg, ThreadVideo):
         #     -> main_to_slot() 신호가 계속 발생, connect 가 중복, 반복실행 결과가 나옴
         #     xls 파일 2회 검사 로딩시, 느린 응답의 경우 발생함
         self.key_repeat_ready = True    
-    
+
+        # ###### 퀴즈 모드 이미지 ######
+        self.lb_mode_img.setScaledContents(False)   # False 상태에서, 스케일 동작함.
+        if EXHIBITION_MODE:
+            pixmap_mode = QPixmap(f'{IMG_PATH}{IMG_MODE_EXHIBITION}')
+        else:
+            pixmap_mode = QPixmap(f'{IMG_PATH}{IMG_MODE_SCHOOL}')
+        pixmap_mode = pixmap_mode.scaled(self.lb_mode_img.size().width(), self.lb_mode_img.size().height(), Qt.KeepAspectRatio) 
+        self.lb_mode_img.setPixmap(pixmap_mode)
 
     ###########################################################################
     def timerKeyTouch_start(self):
@@ -221,7 +234,7 @@ class UserRegDisplay(QWidget, Ui_user_reg, ThreadVideo):
             self.lb_id.setText(self.lb_id.text()+key)
             
         # id, name 검색 -> 모듈 변수에 저장
-        if RANKING_EXHIBITION_MODE:
+        if EXHIBITION_MODE:
             # 전시관 모드
             # db 에서 검색
             val.st_id, val.st_school, val.st_grade, val.st_name = self.find_db_id(id_str)

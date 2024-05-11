@@ -288,6 +288,15 @@ class QuizDisplay(QWidget, Ui_quizView):
         # 터치 연속 입력 제한
         self.key_repeat_ready = True
 
+        # 퀴즈 모드 이미지
+        self.lb_mode_img.setScaledContents(False)   # False 상태에서, 스케일 동작함.
+        if EXHIBITION_MODE:
+            pixmap_mode = QPixmap(f'{IMG_PATH}{IMG_MODE_EXHIBITION}')
+        else:
+            pixmap_mode = QPixmap(f'{IMG_PATH}{IMG_MODE_SCHOOL}')
+        pixmap_mode = pixmap_mode.scaled(self.lb_mode_img.size().width(), self.lb_mode_img.size().height(), Qt.KeepAspectRatio) 
+        self.lb_mode_img.setPixmap(pixmap_mode)
+
 
     def createHandViewWidget(self):
         #################################################
@@ -341,7 +350,7 @@ class QuizDisplay(QWidget, Ui_quizView):
         self.lb_code.setText('CODE: ' )
         self.lb_type.setText('영역: ')
 
-        if not RANKING_EXHIBITION_MODE:
+        if not EXHIBITION_MODE:
             self.lb_usrName.setText(f'{val.st_id} {val.st_name}')
         else:
             self.lb_usrName.setText(f'{val.st_school} {val.st_name}')
@@ -403,7 +412,7 @@ class QuizDisplay(QWidget, Ui_quizView):
         self.lb_question.setText(text2)
 
         # 도전자
-        if not RANKING_EXHIBITION_MODE:
+        if not EXHIBITION_MODE:
             self.lb_usrName.setText(f'{val.st_id} {val.st_name}')
         else:
             self.lb_usrName.setText(f'{val.st_school} {val.st_name}')

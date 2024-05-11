@@ -253,7 +253,7 @@ class Ui_quizMentalView(object):
         self.lb_type.setFont(font)
         self.lb_no = QLabel(quizMentalView)
         self.lb_no.setObjectName(u"lb_no")
-        self.lb_no.setGeometry(QRect(34, 20, 201, 31))
+        self.lb_no.setGeometry(QRect(80, 20, 151, 31))
         self.lb_no.setFont(font)
         self.lb_quizResult = QLabel(quizMentalView)
         self.lb_quizResult.setObjectName(u"lb_quizResult")
@@ -307,6 +307,10 @@ class Ui_quizMentalView(object):
         self.lb_test_hint.setStyleSheet(u"border-radius: 5px;\n"
 "background-color: rgba(255, 255, 255, 150);")
         self.lb_test_hint.setAlignment(Qt.AlignCenter)
+        self.lb_mode_img = QLabel(quizMentalView)
+        self.lb_mode_img.setObjectName(u"lb_mode_img")
+        self.lb_mode_img.setGeometry(QRect(20, 8, 45, 45))
+        self.lb_mode_img.setAlignment(Qt.AlignCenter)
         self.lb_imageView.raise_()
         self.fr_top_quiz.raise_()
         self.lb_fps.raise_()
@@ -320,6 +324,7 @@ class Ui_quizMentalView(object):
         self.lb_verInfo.raise_()
         self.lb_waring.raise_()
         self.lb_test_hint.raise_()
+        self.lb_mode_img.raise_()
 
         self.retranslateUi(quizMentalView)
 
@@ -377,5 +382,6 @@ class Ui_quizMentalView(object):
         self.lb_imgFile.setText(QCoreApplication.translate("quizMentalView", u"lb_img", None))
         self.lb_waring.setText(QCoreApplication.translate("quizMentalView", u"<html><head/><body><p><span style=\" font-size:22pt; color:#ff0000;\">\uce74\uba54\ub77c\uc640 \ub108\ubb34 \uac00\uae5d\uc2b5\ub2c8\ub2e4.</span></p><p><span style=\" font-size:18pt;\">\uce74\uba54\ub77c\uc640 \uc57d\uac04\uc758 \ub354 \ub5a8\uc5b4\uc9c4 \uac70\ub9ac\ub97c \uc720\uc9c0\ud558\uc138\uc694.</span></p></body></html>", None))
         self.lb_test_hint.setText("")
+        self.lb_mode_img.setText(QCoreApplication.translate("quizMentalView", u"mode_img", None))
     # retranslateUi
 

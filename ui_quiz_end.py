@@ -33,7 +33,7 @@ class Ui_quizEndView(object):
         self.fr_top_quiz.setFrameShadow(QFrame.Raised)
         self.lb_type2 = QLabel(self.fr_top_quiz)
         self.lb_type2.setObjectName(u"lb_type2")
-        self.lb_type2.setGeometry(QRect(160, 20, 391, 61))
+        self.lb_type2.setGeometry(QRect(260, 20, 301, 61))
         font = QFont()
         font.setFamilies([u"\ub098\ub214\uc2a4\ud018\uc5b4\ub77c\uc6b4\ub4dc Bold"])
         font.setPointSize(30)
@@ -84,7 +84,7 @@ class Ui_quizEndView(object):
         self.lb_imageView.setAlignment(Qt.AlignCenter)
         self.lb_no = QLabel(quizEndView)
         self.lb_no.setObjectName(u"lb_no")
-        self.lb_no.setGeometry(QRect(30, 20, 201, 71))
+        self.lb_no.setGeometry(QRect(110, 20, 151, 71))
         self.lb_no.setFont(font1)
         self.center_progress = QFrame(quizEndView)
         self.center_progress.setObjectName(u"center_progress")
@@ -100,7 +100,7 @@ class Ui_quizEndView(object):
         self.lb_verInfo.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.lb_quizArea = QLabel(quizEndView)
         self.lb_quizArea.setObjectName(u"lb_quizArea")
-        self.lb_quizArea.setGeometry(QRect(550, 20, 411, 71))
+        self.lb_quizArea.setGeometry(QRect(580, 20, 411, 71))
         self.lb_quizArea.setMinimumSize(QSize(100, 0))
         font5 = QFont()
         font5.setFamilies([u"\ub098\ub214\uc2a4\ud018\uc5b4\ub77c\uc6b4\ub4dc Bold"])
@@ -109,7 +109,7 @@ class Ui_quizEndView(object):
         self.lb_quizArea.setFont(font5)
         self.lb_quizArea.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "background-color: rgb(188, 1, 108);\n"
-"border-radius: 35px;")
+"border-radius: 20px;")
         self.lb_quizArea.setAlignment(Qt.AlignCenter)
         self.fr_ranking = QFrame(quizEndView)
         self.fr_ranking.setObjectName(u"fr_ranking")
@@ -165,6 +165,10 @@ class Ui_quizEndView(object):
 "background-color: rgba(255, 255, 255, 0);")
         self.lb_info2.setAlignment(Qt.AlignRight|Qt.AlignTop|Qt.AlignTrailing)
         self.lb_info2.setWordWrap(True)
+        self.lb_mode_img = QLabel(quizEndView)
+        self.lb_mode_img.setObjectName(u"lb_mode_img")
+        self.lb_mode_img.setGeometry(QRect(13, 15, 80, 80))
+        self.lb_mode_img.setAlignment(Qt.AlignCenter)
         self.lb_imageView.raise_()
         self.fr_top_quiz.raise_()
         self.lb_fps.raise_()
@@ -175,6 +179,7 @@ class Ui_quizEndView(object):
         self.lb_quizArea.raise_()
         self.fr_ranking.raise_()
         self.fr_info.raise_()
+        self.lb_mode_img.raise_()
 
         self.retranslateUi(quizEndView)
 
@@ -205,5 +210,6 @@ class Ui_quizEndView(object):
 "<p>\ubb38\uc81c:00 \uc815\ub2f5:00 \uc624\ub2f5:00 \ud1b5\uacfc:00</p>\n"
 "<p>2023.05.14 AM 11:23</p>", None))
         self.lb_info2.setText(QCoreApplication.translate("quizEndView", u"0203 \ud64d\uae38\ub3d9 \ub2d8\uc758 \uc774\uc804 \ucd5c\uace0 \uae30\ub85d\uc740 00\uc704 00\uc810 00\ubb38\uc81c \uc785\ub2c8\ub2e4.", None))
+        self.lb_mode_img.setText(QCoreApplication.translate("quizEndView", u"mode_img", None))
     # retranslateUi
 

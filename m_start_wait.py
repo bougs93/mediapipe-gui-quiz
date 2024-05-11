@@ -105,9 +105,13 @@ class StartWaitDisplay(QWidget, Ui_startWait, ThreadVideo):
         # self.timerRankingDisp.start()
 
         if QUIZ_TYPE == 'speed':
-            self.lb_type2.setText('퀴즈 유형: ' + '스피드 퀴즈')
+            # self.lb_type2.setText('퀴즈 유형: ' + '스피드 퀴즈')
+            self.lb_type2.setText('스피드 퀴즈')
+
         elif QUIZ_TYPE == 'golden':
-            self.lb_type2.setText('퀴즈 유형: ' + '골든벨 퀴즈')
+            # self.lb_type2.setText('퀴즈 유형: ' + '골든벨 퀴즈')
+            self.lb_type2.setText('골든벨 퀴즈')
+
             
         '''    
         # self.lb_timeView.setText(QTime.fromString(val.speedQuizTime, 'm:s').toString('mm:ss'))
@@ -127,6 +131,14 @@ class StartWaitDisplay(QWidget, Ui_startWait, ThreadVideo):
         self.lb_title_img.setPixmap(pixmap_title)
         # self.lb_title_img.setText('TITLE')
         '''
+        # ###### 퀴즈 모드 이미지 ######
+        self.lb_mode_img.setScaledContents(False)   # False 상태에서, 스케일 동작함.
+        if EXHIBITION_MODE:
+            pixmap_mode = QPixmap(f'{IMG_PATH}{IMG_MODE_EXHIBITION}')
+        else:
+            pixmap_mode = QPixmap(f'{IMG_PATH}{IMG_MODE_SCHOOL}')
+        pixmap_mode = pixmap_mode.scaled(self.lb_mode_img.size().width(), self.lb_mode_img.size().height(), Qt.KeepAspectRatio) 
+        self.lb_mode_img.setPixmap(pixmap_mode)
 
         # https://stackoverflow.com/questions/13119534/resize-images-inside-qt-label
         # 캐릭터 아이콘
