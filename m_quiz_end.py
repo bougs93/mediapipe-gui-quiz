@@ -64,8 +64,9 @@ from ui_quiz_end import Ui_quizEndView
 
 class QuizEndDisplay(QWidget, Ui_quizEndView):
 
-    sound_play_signal = Signal(str)
     main_to_signal = Signal(str)
+    sound_play_signal = Signal(str)
+    candy_dispensor_signal = Signal(int)
 
     def __init__(self):
         super().__init__()
@@ -171,6 +172,9 @@ class QuizEndDisplay(QWidget, Ui_quizEndView):
 
         self.rankView.rankingTableView.myRankView(self.userIndex)    # 랭킹 테이블 출력
         # self.rankingTableView.myRankView(999)
+
+        # self.candyDispenserCheck()      # 사탕 지금 여부 검사
+        QTimer.singleShot( 2000, self.candyDispenserCheck)
         
         if MENU_ANIMATION:
             self.animation_start()
@@ -345,6 +349,10 @@ class QuizEndDisplay(QWidget, Ui_quizEndView):
             # QTimer.singleShot(1000, lambda :self.anim.start )
             self.anim.start()
 
+    def candyDispenserCheck(self):
+        if val.st_score >= CANDY_DISPENSER_SCORE:
+            self.main_to_signal.emit('candy')
+            print("[main to signal] = candy")
 
     def rankingTableAllView_stop(self):
         # self.rankingTableView.tabletimer_stop()

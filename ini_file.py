@@ -339,9 +339,11 @@ def setupIni_load():
     ini['qr_scanner_speed'] = int(setupIni[KEY8]['qr_scanner_speed'])
     ini['qr_encrypt_key'] = setupIni[KEY8]['qr_encrypt_key']
 
-    KEY9 = 'CANDY_DISPENSOR'
-    ini['candy_dispensor_port'] = setupIni[KEY9]['candy_dispensor_port']
-    ini['candy_dispensor_speed'] = int(setupIni[KEY9]['candy_dispensor_speed'])
+    KEY9 = 'CANDY_DISPENSER'
+    ini['candy_dispenser_score'] = int(setupIni[KEY9]['candy_dispenser_score'])
+    ini['candy_dispenser_port'] = setupIni[KEY9]['candy_dispenser_port']
+    ini['candy_dispenser_speed'] = int(setupIni[KEY9]['candy_dispenser_speed'])
+    ini['candy_dispenser_cmd'] = setupIni[KEY9]['candy_dispenser_cmd']
 
     
 

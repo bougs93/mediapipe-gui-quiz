@@ -26,6 +26,7 @@ from thread_sound import ThreadSound
 from thread_scheduler import ThreadScheduler
 # from thread_qr_scanner import ThreadQRScanner
 from thread_qr_scanner import QRScanner
+from thread_candy_dispenser import CandyDispenser
 
 
 from xlsx_quiz_load import *
@@ -218,27 +219,52 @@ class MyWidonws(QMainWindow):
         # self.threadQRScanner.start()
 
         '''
-        [Serial Thread 시작하기]
+        [Serial Thread 시작하기] 시리얼 스캐너
         ########################################################################
         위 문제 해결한 Thread 방식: Thread 내에서 Serial 데이터 수신 성공
         ######################################################################## '''
         # Step 2: Create a QThread object
-        self.workerThread = QThread()
+        self.workerThread1 = QThread()
 
         # Step 3: Create a worker object
         self.threadQRScanner = QRScanner()
 
         # Step 4: Move worker to the thread
-        self.threadQRScanner.moveToThread(self.workerThread)
+        self.threadQRScanner.moveToThread(self.workerThread1)
 
         # Step 5: Connect signals and slots
         self.threadQRScanner.qrScanner_signal.connect(self.qrScanner_slot)
 
         # Step 6: Start the thread
-        self.workerThread.start()
+        self.workerThread1.start()
 
         # <주의> pyside6의 .moveToThread()방식 에서는 .start() 시작되지 않음
         self.threadQRScanner.open()  
+
+        #################################################################################
+
+        '''
+        [Serial Thread 시작하기] 캔디 지급기
+        ########################################################################
+        위 문제 해결한 Thread 방식: Thread 내에서 Serial 데이터 수신 성공
+        ######################################################################## '''
+        # Step 2: Create a QThread object
+        self.workerThread2 = QThread()
+
+        # Step 3: Create a worker object
+        self.threadCandyDispenser = CandyDispenser()
+
+        # Step 4: Move worker to the thread
+        self.threadCandyDispenser.moveToThread(self.workerThread2)
+
+        # Step 5: Connect signals and slots
+        self.threadCandyDispenser.CandyDispensor_signal.connect(self.candyDispenser_slot)
+
+        # Step 6: Start the thread
+        self.workerThread2.start()
+
+        # <주의> pyside6의 .moveToThread()방식 에서는 .start() 시작되지 않음
+        self.threadCandyDispenser.open()  
 
         #################################################################################
 
@@ -254,7 +280,7 @@ class MyWidonws(QMainWindow):
 
 
     def keyPressEvent(self, e): #키가 눌러졌을 때 실행됨
-        # print('debug key :', e)
+        print('debug key :', e, "self.quiz_test :", self.quiz_test)
         # https://newbie-developer.tistory.com/96
         if e.key() == Qt.Key_T:
             # https://bskyvision.com/entry//pyqt5-윈도우-항상-가장-위에-있게-하면서-타이틀-바도-없게-하려면
@@ -284,6 +310,7 @@ class MyWidonws(QMainWindow):
             self.startWaitDisplay.lb_cmdMsg.setText(f'윈도우 : 창 항상위로/항상위로 취소')
             QTimer.singleShot(MSG_CMD_TIME, lambda :self.startWaitDisplay.lb_cmdMsg.setText('') )
             self.show()
+            print('윈도우 : 창 항상위로/항상위로 취소')
 
         elif e.key() == Qt.Key_W:
             # 상단 메뉴 숨기기
@@ -291,6 +318,7 @@ class MyWidonws(QMainWindow):
             self.startWaitDisplay.lb_cmdMsg.setText(f'윈도우 : 상단 메뉴 숨기기/보이기')
             QTimer.singleShot(MSG_CMD_TIME, lambda :self.startWaitDisplay.lb_cmdMsg.setText('') )
             self.show()
+            print('윈도우 : 상단 메뉴 숨기기/보이기')
 
         # 빔 프로젝터 ON
         elif (e.key() == Qt.Key_O) and  (self.quiz_test == False):
@@ -442,6 +470,12 @@ class MyWidonws(QMainWindow):
                 else:
                     self.display_QuizMentalTestEnd()
                     self.quiz_test = False
+
+            elif e.key() == Qt.Key_C:
+                # 캔디 지급기 테스트
+                print('[캔디 지급기] 테스트 신호 발생')
+                self.threadCandyDispenser.serial_Write(CANDY_DISPENSER_CMD)
+                self.startWaitDisplay.lb_cmdMsg.setText('캔디 지급기 : 테스트')
 
 
     def display_StartWait(self):
@@ -717,9 +751,6 @@ class MyWidonws(QMainWindow):
         self.display_ConnectChange(self.quizEndDisplay, 5000, self.threadVideo.button_ok_create)
 
         self.quizEndDisplay.displayStart()    #  종료화면 표시 시간 타이머 시작
-
-        ############################
-        self.quizEndDisplay.displayStart()
 
 
     ###########################################################################
@@ -1019,7 +1050,7 @@ class MyWidonws(QMainWindow):
     @Slot(str)
     def main_to_slot(self, e):
         # print('val.quizMode : ', val.quizMode)
-        print(f' < 0 >>> main_to_slot = {e}')
+        print(f'[main_to_slot] = {e}')
 
         
         ####################################################
@@ -1196,6 +1227,13 @@ class MyWidonws(QMainWindow):
             QTimer.singleShot(VIDEO_BTN_REFLASH_DELAY, self.threadVideo.input_fingerNone)
             QTimer.singleShot(VIDEO_BTN_REFLASH_DELAY, lambda : self.quizDisplay.viewInputModImg(None))
 
+        ###################################################
+        elif e == 'candy':
+            print('[캔디 지급기] 신호 발생')
+            self.threadCandyDispenser.serial_Write(CANDY_DISPENSER_CMD)
+
+
+        ###################################################
 
         self.befor_menu = e
 
@@ -1333,6 +1371,10 @@ class MyWidonws(QMainWindow):
             selectQuizNum()
             # ####### 메뉴(화면) 전환 #######
             toRegMenu()
+
+    @Slot(int)
+    def candyDispenser_slot(self):
+        print('캔디 지급기 신호 수신')
 
 
     def mainTimerStart(self):

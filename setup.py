@@ -413,6 +413,7 @@ QR_ENCRYPT_KEY = ini['qr_encrypt_key']      #'aesKey'
 
 
 #######################################################
-CANDY_DISPENSOR_PORT = ini['candy_dispensor_port']    # 'COM9'
-CANDY_DISPENSOR_SPEED = ini['candy_dispensor_speed']  # 9600
-
+CANDY_DISPENSER_PORT = ini['candy_dispenser_port']    # 'COM9'
+CANDY_DISPENSER_SPEED = ini['candy_dispenser_speed']  # 9600
+CANDY_DISPENSER_SCORE = ini['candy_dispenser_score']  # 캔디 지급할 점수
+CANDY_DISPENSER_CMD = ini['candy_dispenser_cmd'] # 캔디 지급 명령어(HEX)

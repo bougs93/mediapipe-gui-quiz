@@ -11,14 +11,14 @@ from PySide6.QtSerialPort import QSerialPort, QSerialPortInfo
 
 
 # class ThreadQRScanner(QThread):
-class CandyDispensor(QObject):
+class CandyDispenser(QObject):
     CandyDispensor_signal = Signal(str)
 
     def __init__(self):
         super().__init__()
 
-        self.candy_dispensor_port = CANDY_DISPENSOR_PORT
-        self.candy_dispensor_speed = CANDY_DISPENSOR_SPEED 
+        self.candy_dispensor_port = CANDY_DISPENSER_PORT
+        self.candy_dispensor_speed = CANDY_DISPENSER_SPEED 
 
         self.ignore_flag = False  # 데이터를 무시할지 여부를 결정하는 플래그
 
@@ -40,7 +40,10 @@ class CandyDispensor(QObject):
         # 시리얼 포트로 데이터를 수신 가능하게 되었을 때에 발행> readyRead 시그널
         #  https://doc.qt.io/qtforpython/PySide6/QtCore/QIODevice.html
         #  https://doc.qt.io/qtforpython/PySide6/QtCore/QIODevice.html#PySide6.QtCore.PySide6.QtCore.QIODevice.readyRead
-        self.port.readyRead.connect(self.read_from_port)
+        
+        # self.port.readyRead.connect(self.read_from_port)
+
+        self.serial_stop()
 
 
     def serial_init(self):
@@ -70,19 +73,18 @@ class CandyDispensor(QObject):
         ret = self.port.open(QIODevice.ReadWrite)
 
         # self.port.setDataTerminalReady(True)
-        
 
         if ret:
-            print(f" SCANNER | Port {self.candy_dispensor_port} Open [OK] : {self.candy_dispensor_speed}\n")
+            print(f" CANDY | Port {self.candy_dispensor_port} Open [OK] : {self.candy_dispensor_speed}\n")
             return True
         else:
-            print(f" SCANNER | Port {self.candy_dispensor_port} Open [ERR] : {self.candy_dispensor_speed}\n")
+            print(f" CANDY | Port {self.candy_dispensor_port} Open [ERR] : {self.candy_dispensor_speed}\n")
             self.serial_stop()
             return False
 
     def serial_stop(self):
         self.port.close()
-        print(f'\n SCANNER | Port {self.candy_dispensor_port} Port Close')
+        print(f'\n CANDY | Port {self.candy_dispensor_port} Port Close')
 
 
     def read_from_port(self):
@@ -95,17 +97,17 @@ class CandyDispensor(QObject):
         # https://opentutorials.org/module/544/19046
         received_data = self.port.readAll()
 
-        # 1) \r 코드를 빈 문자열로 대체
-        cleaned_data = received_data.replace(b"\r", b"")
+        print(f"CANDY serial data recive : {received_data}")
+
         # print(f'\n SCANNER | Port data recive : {cleaned_data}')
 
-        # 2) 암호화 해제
-        restore_data = self.aes.decrypt(cleaned_data)
-        if restore_data == None:
-            print(f'[복호화 ERR]')
-        else:
-            print(f' SCANNER | restore data recive : {restore_data}')
-            self.analysis(restore_data)
+        # # 2) 암호화 해제
+        # restore_data = self.aes.decrypt(cleaned_data)
+        # if restore_data == None:
+        #     print(f'[복호화 ERR]')
+        # else:
+        #     print(f' SCANNER | restore data recive : {restore_data}')
+        #     self.analysis(restore_data)
 
 
     def pause_reception(self):
@@ -114,41 +116,41 @@ class CandyDispensor(QObject):
     def continue_reception(self):
         self.ignore_flag = False
 
-    # ##################################################################
+    ############################################################
+    # WRITE | writeToPort
+    ############################################################
+    def serial_Write(self, data):
+        ret_serial_init = self.serial_init()
+        if ret_serial_init:
 
-    def analysis(self, _string):
-        #
-        # ad/del, id, school, grade, class, number, name, gender, etc (,:8개)
-        # ex) add,1234,고실초,2,6,30,홍길순,남,테스트1
+            # 공백을 기준으로 문자열을 나누고 바이트로 변환
+            try:
+                print(f"[CANDY] 데이터 전송 : {data}")
+                # hex 데이터 전송
+                # hex_data = QByteArray.fromHex(data.replace(' ', '').encode('utf-8'))
+                
+                # 문자열 데이터 전송
+                # self.port.write(QByteArray(data.encode('utf-8')))
+                # self.port.write(QByteArray(data))
 
-        # err = False
-        # 1) ',' 문자 개수 확인
-        if _string.count(',') != DATA_SPLIT_CHAR_CNT:
-            print(" [SCAN DATA ERR] : ',' 갯수 에러 error ")
-            return
 
-        # 2) ',' 분리 후, 문자 개수 확인
-        str_list = _string.split(',')
-        # print(f' [SCAN DATA LIST] = {str_list}')
+                # 시리얼 포트로 데이터 전송
+                self.port.write(data.encode())
 
-        # 추가 모드
-        if str_list[SCAN_HEADER] == 'add':
-            pass
+                 #  2) 데이터 전송
+                self.port.waitForBytesWritten(1000)     # 이게 있어야만, 시리얼 전송이 이루어짐
 
-        # 삭제 모드
-        elif str_list[SCAN_HEADER] == 'del':
-            pass
+                print(f"[CANDY] 데이터 전송 : OK")
 
-        elif str_list[SCAN_HEADER] == 'guest':
-            pass
+                self.serial_stop()
 
-        # 기타
+            except ValueError as e:
+                print(f"[CANDY] Error converting HEX string: {e}")
+
+            except AttributeError as e:
+                print(f"[CANDY] Error1 serial port: {e}")
         else:
-            print(" [SCAN DATA ERR] : data[0] = add/del/guest 이 아님")
-            return
-        
-        # print(f" [SCAN DATA OK] : {str_list}")
-        self.qrScanner_signal.emit(str_list)
+            print(f"[CANDY] Error serial port Not open ")
 
 
 
@@ -157,6 +159,8 @@ if __name__ == "__main__":
     # a = ThreadQRScanner()
     # a.run()
 
-    b= QRScanner()
-    b.open()
+    b= CandyDispenser()
+    # b.open()
+
+    b.serial_Write("a,100,120,140,160,n")
     sys.exit(app.exec())
