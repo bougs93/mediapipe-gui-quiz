@@ -453,33 +453,38 @@ class QuizMentalDisplay(QWidget, Ui_quizMentalView):
 
         ##################################################################################################
         # Qtimer 스탑워치
-        # if mode == "start":
-        #     self.test_hint = False
-        #     self.timerSpeedQ = QTimer()
-        #     self.timerSpeedQ_rem = QTime.fromString(val.speedQuizTime, 'm:s')
-        #     self.timerSpeedQ.setInterval(QTIMER_INTERVAL)
-        #     self.timerSpeedQ.timeout.connect(self.timerSpeedQ_timeout)
-        #     self.timerSpeedQ.start()
 
+        if mode == "start":
+            self.quiz_test_fg = False
+
+            if Q_TEST_HINT:
+                self.test_hint = True
+            else:
+                self.test_hint = False
+
+            # 다음 퀴즈까지 넘어가기 위한 
+            #   최소시간 self.quizTimer_next 타이머가 동작하지 않음
+
+            # self.timerSpeedQ = QTimer()
+            # self.timerSpeedQ_rem = QTime.fromString(val.speedQuizTime, 'm:s')
+            # self.timerSpeedQ.setInterval(QTIMER_INTERVAL)
+            # self.timerSpeedQ.timeout.connect(self.timerSpeedQ_timeout)
+            # self.timerSpeedQ.start()
+
+        elif mode == "test":
+            self.quiz_test_fg = True
+
+            self.test_hint = True
+            
         self.timerSpeedQ = QTimer()
         self.timerSpeedQ_rem = QTime.fromString(val.speedQuizTime, 'm:s')
         self.timerSpeedQ.setInterval(QTIMER_INTERVAL)
         self.timerSpeedQ.timeout.connect(self.timerSpeedQ_timeout)
         self.timerSpeedQ.start()
-        
-        if mode == "start":
-            if Q_TEST_HINT:
-                self.test_hint = True
-            else:
-                self.test_hint = False
-        elif mode == "test":
-            self.test_hint = True
-        
 
         # 다음 문제까지의 타이머
         self.quizTimer_next = 0         # 첫문제는 바로 시작할 수 있도록
         self.quiz_in_progress = 'quiz_progress'
-
 
 
     def timerSpeedQ_timeout(self):
@@ -487,10 +492,10 @@ class QuizMentalDisplay(QWidget, Ui_quizMentalView):
         # 멘탈 퀴즈 다음 문제까지 지연시간
         if self.quizTimer_next > 0:
             self.quizTimer_next -= 1
-        #------------------------------------------------------------------
-        if self.test_hint:
+
+        if self.quiz_test_fg == True:
             return
-        #------------------------------------------------------------------
+        
         if self.quiz_in_progress == 'quiz_progress':  # 'stop' : 중지, 'quiz_progress': 퀴즈중, 'quiz_end' 퀴즈 종료
             self.timerSpeedQ_timeout_quizTimer()
         elif self.quiz_in_progress == 'quiz_end':
@@ -572,7 +577,6 @@ class QuizMentalDisplay(QWidget, Ui_quizMentalView):
         # 퀴즈 진행 상태가 아니면, pass
         if self.quiz_in_progress != 'quiz_progress':   # 'stop' : 중지, 'quiz_progress': 퀴즈중, 'quiz_end' 퀴즈 종료
             return 
-
         # 틀릴때 까지 반복하는 모드
         val.st_quiz_cnt += 1
 
@@ -851,6 +855,7 @@ class QuizMentalDisplay(QWidget, Ui_quizMentalView):
             self.mentalGView.lb_answer2.setText('')
             self.mentalGView.lb_answer3.setText('')
 
+            print(f'self.quizTimer_next = {self.quizTimer_next}')
             if self.quizTimer_next == 0:
                 self.quiz42_Next()
                 self.anglePreState = state

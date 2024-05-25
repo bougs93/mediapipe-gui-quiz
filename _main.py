@@ -56,7 +56,6 @@ SCAN_GENDER = 7
 SCAN_ETC = 8
 
 
-
 def st_clear():
     print('st_clear : 학생 초기화')
     print(val.st_id, val.st_name)
