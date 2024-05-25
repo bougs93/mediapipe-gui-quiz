@@ -499,7 +499,7 @@ class XlsxQuizLoad(QThread):
 
         #######################################################
         #   워크북(엑셀파일)을 원하는 이름으로 저장합니다.
-        print(f'$$$$$$$$$$$ = {TEMP_PATH }{QUIZ_RANDOM_FILE}')
+        print(f'퀴즈 파일 저장 = {TEMP_PATH }{QUIZ_RANDOM_FILE}')
         write_wb.save(f'{TEMP_PATH }{QUIZ_RANDOM_FILE}')
         write_wb.close()
 
