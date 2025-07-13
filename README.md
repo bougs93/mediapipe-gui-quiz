@@ -7,8 +7,7 @@
 https://www.nocutnews.co.kr/news/6233408
 
 ##특상은 교원·일반부에 참가한 고실중학교 정원길·양회관 교사가 출품한 'AI모션 인식 기술 이용한 과학 퀴즈 연구' 작품이 선정됐다.
-<img width="1474" height="324" alt="image" src="https://github.com/user-attachments/assets/5f166843-28c2-4829-b33a-b9a2ed9384b0" />
-
+<img width="1163" height="683" alt="image" src="https://github.com/user-attachments/assets/438f0a55-28b5-4fe1-8fe6-49a44b50d244" />
 
 
 
