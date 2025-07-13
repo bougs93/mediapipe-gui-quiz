@@ -1,6 +1,7 @@
 # 2024 제70회 전국과학전람회 출품작 
 ## 프로젝트 주제: AI모션 인식 기술 이용한 과학 퀴즈 연구
 
+### 교원,일반부 특상(산업 및 에너지 SW IT 융합 부분 포함)
 ## 전국과학전람회 특상수상
 
 https://www.nocutnews.co.kr/news/6233408
@@ -9,7 +10,7 @@ https://www.nocutnews.co.kr/news/6233408
 <img width="1474" height="324" alt="image" src="https://github.com/user-attachments/assets/5f166843-28c2-4829-b33a-b9a2ed9384b0" />
 
 
-### 교원,일반부 특상(산업 및 에너지 SW IT 융합 부분 포함)
+
 
 
 
